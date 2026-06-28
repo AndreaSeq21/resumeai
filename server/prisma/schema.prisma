@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Analysis {
+  id             Int      @id @default(autoincrement())
+  resume         String
+  jobDescription String
+  result         String
+  matchScore     Int?
+  createdAt      DateTime @default(now())
+}

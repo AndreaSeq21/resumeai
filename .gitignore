@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+
+# Prisma generated
+server/node_modules/
+client/node_modules/
+
+# Build outputs
+client/dist/
+
+# OS files
+.DS_Store
