@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const analyzeRoute = require('./routes/analyze');
+const authRoute = require('./routes/auth')
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json()); // parse JSON request bodies
 
 // Routes
 app.use('/api', analyzeRoute);
+app.use('/api', authRoute);
 
 // Health check — useful for deployment platforms
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
