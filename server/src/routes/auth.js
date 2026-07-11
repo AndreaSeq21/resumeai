@@ -10,6 +10,9 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
+const jwt = require('jsonwebtoken');
+
+
 router.post('/login', async(req, res) => {
   const { email, password } = req.body;
 
@@ -21,8 +24,8 @@ router.post('/login', async(req, res) => {
     if (!bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({ error: 'Invalid credentials.' });
     }
-    // ← add this line here
-    res.json({ message: "User logged in successfully" });
+    const token = jwt.sign({ userId:user.id, email:user.email}, process.env.JWT_SECRET, { expiresIn: '7d'});
+    res.json({ token });
   } catch (dbErr) {
     console.error('❌ Login failed:', dbErr.message);
     return res.status(500).json({ error: 'Could not log in.' });
